@@ -42,7 +42,6 @@ augmentation = keras.models.Sequential([
 train_ds = train_ds.map(lambda x, y: (augmentation(x), y))
 
 # Show the transformed sample images
-# Show some example images
 fig = subplots.make_subplots(rows=5, cols=5)
 train_iterator = iter(train_ds)
 for i in range(25):
