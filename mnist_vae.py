@@ -7,6 +7,7 @@ import numpy as np
 from tensorflow.keras import layers
 from plotly import subplots
 import plotly.express as px
+from plotly.subplots import make_subplots
 
 # Sampling Layer
 class Sampling(layers.Layer):
@@ -99,7 +100,7 @@ vae.fit(mnist_digits, epochs=30, batch_size=128)
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = np.squeeze(decoder.predict(encoded_imgs[2]))
 # Plot the original and decoded images
-fig = subplots.make_subplots(rows=2, cols=10)
+fig = make_subplots(rows=2, cols=10)
 for i in range(10):
     fig.add_trace(px.imshow(x_test[i], binary_string=True).data[0], row=1, col=i + 1)
     fig.add_trace(px.imshow(decoded_imgs[i], binary_string=True).data[0], row=2, col=i + 1)
@@ -112,7 +113,7 @@ sample = Sampling()([np.zeros((128, ldim)), np.zeros((128, ldim))])
 # Decode to images
 decoded_imgs = np.squeeze(decoder.predict(sample))
 # Plot the generated images
-fig = subplots.make_subplots(rows=1, cols=10)
+fig = make_subplots(rows=1, cols=10)
 for i in range(10):
     fig.add_trace(px.imshow(decoded_imgs[i], binary_string=True).data[0], row=1, col=i + 1)
 fig.show(renderer='browser')

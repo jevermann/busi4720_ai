@@ -7,6 +7,7 @@ from tensorflow.keras import models
 import keras
 from plotly import subplots
 import plotly.express as px
+from plotly.subplots import make_subplots
 
 # Convolutional model encoder
 encoder = models.Sequential([
@@ -49,7 +50,7 @@ auto_encoder.fit(x_train, x_train, epochs=5, validation_data=(x_test, x_test))
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
 
-fig = subplots.make_subplots(rows=2, cols=10)
+fig = make_subplots(rows=2, cols=10)
 for i in range(10):
     fig.add_trace(px.imshow(x_test[i], binary_string=True).data[0], row=1, col=i + 1)
     fig.add_trace(px.imshow(decoded_imgs[i], binary_string=True).data[0], row=2, col=i + 1)

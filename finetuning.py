@@ -3,6 +3,7 @@ from keras import layers
 import tensorflow_datasets as tfds
 from plotly import subplots
 import plotly.express as px
+from plotly.subplots import make_subplots
 
 # Load a Tensorflow example image data set
 train_ds, test_ds = tfds.load(
@@ -23,7 +24,7 @@ train_ds = train_ds.map(lambda x, y: (scale_fn(x), y))
 test_ds = test_ds.map(lambda x, y: (scale_fn(x), y))
 
 # Show some example images
-fig = subplots.make_subplots(rows=5, cols=5)
+fig = make_subplots(rows=5, cols=5)
 train_iterator = iter(train_ds)
 for i in range(25):
     image, label = next(train_iterator)
@@ -42,7 +43,7 @@ augmentation = keras.models.Sequential([
 train_ds = train_ds.map(lambda x, y: (augmentation(x), y))
 
 # Show the transformed sample images
-fig = subplots.make_subplots(rows=5, cols=5)
+fig = make_subplots(rows=5, cols=5)
 train_iterator = iter(train_ds)
 for i in range(25):
     image, label = next(train_iterator)
